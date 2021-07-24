@@ -1,12 +1,12 @@
 # dbt-generator
 
-This package helps in generating the base models and transform them in bulk. For sources with 10+ models, this package will save you a lot of time by generating base models in bulk and transform them for common fields. Using this package is a great way to start your modeling or onboarding new source.
+This package helps in generating the base models and transform them in bulk. For sources with 10+ models, this package will save you a lot of time by generating base models in bulk and transform them for common fields. Using this package is a great way to start your modeling or onboarding new sources.
 
 ## Installation
 
-To use this packge, you need dbt installed with a profile configed.You will also need to install the code-gen package from dbt Hub. Add the following to the packages.yml file in your dbt repo and run `dbt deps` to install dependencies.
+To use this package, you need dbt installed with a profile configured. You will also need to install the code-gen package from dbt Hub. Add the following to the packages.yml file in your dbt repo and run `dbt deps` to install dependencies.
 
-```JSON
+```
 packages:
   - package: fishtown-analytics/codegen
     version: 0.3.2
@@ -22,7 +22,7 @@ This package should be executed inside your dbt repo.
 
 ## Generate base models
 
-To generate base models, use the `dbt-generator generate` command. This is a wrapper around the `codegen` command that will generate the base models. This is especialy useful when you have a lot of models and you want to generate them all at once. 
+To generate base models, use the `dbt-generator generate` command. This is a wrapper around the `codegen` command that will generate the base models. This is especially useful when you have a lot of models, and you want to generate them all at once. 
 
 ```
 Usage: dbt-generator generate [OPTIONS]
@@ -44,11 +44,11 @@ dbt-generator generate -s ./models/source.yml -o ./models/staging/source_name/
 
 This will read in the `source.yml` file and generate the base models in the `staging/source_name` folder. If you have multiple sources defined in your `yml` file, use the `--source-index` flag to specify which source you want to generate base models for.
 
-## Process base models
+## Transform base models
 
-For the same source, you often have consistent naming conventions between tables. For example, the `created_at` and `modified_at` fields are often named the same for all tables. Changing all these fields to a common values accross different sources is a best practice. However, doing that for all the date columns in 10+ tables is a pain.
+For the same source, you often have consistent naming conventions between tables. For example, the `created_at` and `modified_at` fields are often named the same for all tables. Changing all these fields to common values across different sources is a best practice. However, doing that for all the date columns in 10+ tables is a pain.
 
-With this package you can write a `transforms.yml` file that will be read in (the `.yml` file can be named anything). This file will contain the transforms that you want to apply to all the base models. You can just rename the fields in the base models or apply a custom SQL select to the transformed fields. 
+With this package, you can write a `transforms.yml` file that will be read in (the `.yml` file can be named anything). This file will contain the transforms that you want to apply to all the base models. You can just rename the fields in the base models or apply a custom SQL select to the transformed fields. 
 
 ```
 Usage: dbt-generator transform [OPTIONS]
@@ -86,11 +86,11 @@ This `.yml` file when applied to all models in the `staging/source_name` folder 
 dbt-generator transform -m ./models/staging/source_name/ -t ./transforms.yml
 ```
 
-This will transform all models in the `staging/source_name` folder using the `transforms.yml` file. You can also drop the metadata by setting the `drop-metadata` flag to `true` (dropping columns start with `_`). The `--case-sensitive` flag will determine if the transforms will use case sensitive names or not.
+This will transform all models in the `staging/source_name` folder using the `transforms.yml` file. You can also drop the metadata by setting the `drop-metadata` flag to `true` (dropping columns start with `_`). The `--case-sensitive` flag will determine if the transforms will use case-sensitive names or not.
 
 ## Limitations
 
-Here are some of the limitations with the current release. If you want to contribute, please open an issue or a pull request.
+Here are some of the limitations of the current release. If you want to contribute, please open an issue or a pull request.
 
 * Transforms only works with model generated with the code-gen package. 
 * You cannot transform a model that has already been transformed
