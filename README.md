@@ -18,9 +18,11 @@ Install the package in the same environment with your dbt installation by runnin
 pip install dbt-generator
 ```
 
+This package should be executed inside your dbt repo.
+
 ## Generate base models
 
-To generate base models, use the `dbt-generator generate` command. This is a wrapper around the `codegen` command that will generate the base models. This is especialy useful when you have a lot of models and you want to generate them all at once.
+To generate base models, use the `dbt-generator generate` command. This is a wrapper around the `codegen` command that will generate the base models. This is especialy useful when you have a lot of models and you want to generate them all at once. 
 
 ```
 Usage: dbt-generator generate [OPTIONS]
