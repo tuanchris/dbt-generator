@@ -3,6 +3,9 @@ import click
 from .generate_base_models import *
 from .process_base_models import *
 
+def get_file_name(file_path):
+    return os.path.basename(file_path)
+
 @click.group(help='Generate and process base dbt models')
 def dbt_generator():
     pass
@@ -19,16 +22,28 @@ def generate(source_yml, output_path, source_index):
         file = open(os.path.join(output_path, file_name), 'w')
         file.write(query)
 
-@dbt_generator.command(help='Process base models in a directory')
+@dbt_generator.command(help='Transform base models in a directory using a transforms.yml file')
 @click.option('-m', '--model-path', type=click.Path(), help='The path to models')
 @click.option('-t', '--transforms-path', type=click.Path(), help='Path to a .yml file containing transformations')
+@click.option('-o', '--output-path', type=click.Path(), help='Path to write transformed models to')
 @click.option('--drop-metadata', type=bool, help='The drop metadata flag', default=True)
 @click.option('--case-sensitive', type=bool, help='The case sensitive flag', default=False)
-def process(model_path, transforms_path, drop_metadata, case_sensitive):
+def transform(model_path, transforms_path, output_path, drop_metadata, case_sensitive):
     sql_files = get_sql_files(model_path)
     for sql_file in sql_files:
         pbq = ProcessBaseQuery(os.path.join(model_path, sql_file), transforms_path, drop_metadata, case_sensitive)
-        pbq.write_file(os.path.join(model_path, sql_file))
+        pbq.write_file(os.path.join(output_path, sql_file))
+
+@dbt_generator.command(help='Transform one base model using a transforms.yml file')
+@click.option('-m', '--model-path', type=click.Path(), help='The path to one single model')
+@click.option('-t', '--transforms-path', type=click.Path(), help='Path to a .yml file containing transformations')
+@click.option('-o', '--output-path', type=click.Path(), help='Path to write transformed models to')
+@click.option('--drop-metadata', type=bool, help='The drop metadata flag', default=True)
+@click.option('--case-sensitive', type=bool, help='The case sensitive flag', default=False)
+def transforms(model_path, transforms_path, output_path, drop_metadata, case_sensitive):
+    file_name = get_file_name(model_path)
+    pbq = ProcessBaseQuery(model_path, transforms_path, drop_metadata, case_sensitive)
+    pbq.write_file(os.path.join(output_path, file_name))
 
 if __name__ == '__main__':
     dbt_generator()

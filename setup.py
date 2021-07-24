@@ -6,7 +6,7 @@ with open('requirements.txt') as f:
 
 setup(
     name = 'dbt_generator',
-    version = '0.1.2',
+    version = '0.1.3',
     author = 'Tuan Nguyen',
     author_email = 'anhtuan.nguyen@me.com',
     url = 'https://github.com/tuanchris/dbt-generator',
