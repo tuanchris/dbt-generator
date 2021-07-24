@@ -4,13 +4,18 @@ from setuptools import setup, find_packages
 with open('requirements.txt') as f:
     requirements = f.readlines()
 
+with open('README.md') as f:
+    long_description = f.read()
+
 setup(
     name = 'dbt_generator',
-    version = '0.1.3',
+    version = '0.1.4',
     author = 'Tuan Nguyen',
     author_email = 'anhtuan.nguyen@me.com',
     url = 'https://github.com/tuanchris/dbt-generator',
     description = 'Generate and process base models for dbt',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     license ='MIT',
     packages = find_packages(),
     entry_points = {
