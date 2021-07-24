@@ -1,0 +1,11 @@
+ID:
+  name: ID
+  sql: CAST(ID as INT64)
+CREATED_TIME:
+  name: CREATED_AT
+UPDATED_TIME:
+  name: MODIFIED_AT
+DATE_START:
+  name: START_AT
+DATE_STOP:
+  name: STOP_AT
