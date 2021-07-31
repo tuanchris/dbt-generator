@@ -16,6 +16,6 @@ def generate_base_model(table_name, source_name):
 		dbt run-operation generate_base_model --args \'{{"source_name": "{source_name}", "table_name": "{table_name}"}}\'
 	'''
 	output = subprocess.check_output(bash_command, shell=True).decode("utf-8") 
-	sql_index = output.find('with source as')
+	sql_index = output.lower().find('with source as')
 	sql_query = output[sql_index:]
 	return sql_query

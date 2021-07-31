@@ -30,8 +30,8 @@ class ProcessBaseQuery:
 
     def get_columns(self):
         lines = self.lines
-        self.start_index = lines.index('renamed as (') + 3
-        self.end_index = lines.index('    from source') - 1
+        self.start_index = lines.lower().index('renamed as (') + 3
+        self.end_index = lines.lower().index('    from source') - 1
         columns = lines[self.start_index:self.end_index]
         if not self.case_sensitive:
             columns = [col.lower() for col in columns]
