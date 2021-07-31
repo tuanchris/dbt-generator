@@ -9,7 +9,7 @@ with open('README.md') as f:
 
 setup(
     name = 'dbt_generator',
-    version = '0.1.6',
+    version = '0.1.7',
     author = 'Tuan Nguyen',
     author_email = 'anhtuan.nguyen@me.com',
     url = 'https://github.com/tuanchris/dbt-generator',

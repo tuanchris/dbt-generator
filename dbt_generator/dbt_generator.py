@@ -13,9 +13,12 @@ def dbt_generator():
 @dbt_generator.command(help='Gennerate base models based on a .yml source')
 @click.option('-s', '--source-yml', type=click.Path(), help='Source .yml file to be used')
 @click.option('-o', '--output-path', type=click.Path(), help='Path to write generated models')
+@click.option('-m','--model', type=str, default='', help='Select one model to generate')
 @click.option('--source-index', type=int, default=0, help='Index of the source to generate base models for')
-def generate(source_yml, output_path, source_index):
+def generate(source_yml, output_path, source_index, model):
     tables, source_name = get_base_tables_and_source(source_yml, source_index)
+    if model:
+        tables = [model]
     for table in tables:
         file_name = table + '.sql'
         query = generate_base_model(table, source_name)
