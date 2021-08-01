@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: GOOGLE_ADS
+    database: RAW
+    tables: 
+    - name: ACCOUNTS
+    - name: AD_GROUPS
+
+
+  - name: GOOGLE_ADS_2
+    database: RAW
+    tables: 
+    - name: ACCOUNTS
+    - name: AD_GROUPS

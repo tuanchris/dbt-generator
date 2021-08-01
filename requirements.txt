@@ -1,3 +1,4 @@
 dbt
 pyyaml
 click
+pytest
