@@ -9,7 +9,7 @@ To use this package, you need dbt installed with a profile configured. You will 
 ```
 packages:
   - package: fishtown-analytics/codegen
-    version: 0.3.2
+    version: 0.4.0
 ```
 
 Install the package in the same environment with your dbt installation by running: 
