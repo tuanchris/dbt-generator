@@ -32,6 +32,8 @@ Usage: dbt-generator generate [OPTIONS]
 Options:
   -s, --source-yml PATH   Source .yml file to be used
   -o, --output-path PATH  Path to write generated models
+  -m, --model STRING      Model name
+  --model-prefix BOOLEAN  optional prefix of source_name + "_" to the resulting modelname.sql to avoid model name collisions across sources 
   --source-index INTEGER  Index of the source to generate base models for
   --help                  Show this message and exit.
 ```
