@@ -22,7 +22,7 @@ def generate(source_yml, output_path, source_index, model):
     for table in tables:
         file_name = table + '.sql'
         query = generate_base_model(table, source_name)
-        file = open(os.path.join(output_path, file_name), 'w')
+        file = open(os.path.join(output_path, file_name), 'w', newline='')
         file.write(query)
 
 @dbt_generator.command(help='Transform base models in a directory using a transforms.yml file')
