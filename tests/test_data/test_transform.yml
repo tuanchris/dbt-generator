@@ -9,3 +9,14 @@ DATE_START:
   name: START_AT
 DATE_STOP:
   name: STOP_AT
+NAME:
+  name: col_name
+  sql: CAST(NAME as varchar)
+customerid:
+  name: customer_id
+  sql: CAST(customerid as varchar)
+datetimezone:
+  name: date_time_zone
+  sql: date_trunc('day',datetimezone)
+_sdc_sequence:
+  name: _sdc_seq

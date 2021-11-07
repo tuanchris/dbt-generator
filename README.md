@@ -61,8 +61,8 @@ Options:
   -m, --model-path PATH       The path to models
   -t, --transforms-path PATH  Path to a .yml file containing transformations
   -o, --output-path PATH      Path to write transformed models to
-  --drop-metadata BOOLEAN     The drop metadata flag
-  --case-sensitive BOOLEAN    The case sensitive flag
+  --drop-metadata BOOLEAN     (default=True) optionally drop source columns prefixed with "_" if that designates metadata columns not needed in target
+  --case-sensitive BOOLEAN    (default=False) treat column names as case-sensitive - otherwise force all to lower
   --help                      Show this message and exit.
 ```
 
@@ -96,6 +96,7 @@ Here are some of the limitations of the current release. If you want to contribu
 
 * Transforms only works with model generated with the code-gen package. 
 * You cannot transform a model that has already been transformed
+*     - transformation logic assumes base model contains just a list of column names with no aliases or SQL logic added
 * You cannot use wild card in fields selection for transforms (e.g. `*_id`)
-* No tests yet
+* Limited test coverage
 * No error handling yet
