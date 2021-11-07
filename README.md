@@ -8,7 +8,7 @@ To use this package, you need dbt installed with a profile configured. You will 
 
 ```
 packages:
-  - package: fishtown-analytics/codegen
+  - package: dbt-labs/codegen
     version: 0.4.0
 ```
 
