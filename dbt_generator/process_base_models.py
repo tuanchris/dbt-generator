@@ -30,10 +30,11 @@ class ProcessBaseQuery:
 
     def get_columns(self):
         lines = self.lines
-        self.start_index = [line.lower() for line in lines].index('renamed as (') + 3
-        self.end_index = [line.lower() for line in lines].index('    from source') - 1
+        self.start_index = [line.lower().strip() for line in lines].index('select') + 1
+        self.end_index = [line.lower().strip() for line in lines].index('from source')
         columns = lines[self.start_index:self.end_index]
-        self.columns = [col.strip().replace(',','') for col in columns]
+        cleansed_cols = list(filter(lambda x: x != '', [col.replace(',', '').strip() for col in columns]))
+        self.columns = cleansed_cols
     
     def load_transforms(self):
         transforms_file = open(self.transforms_file)
@@ -46,12 +47,12 @@ class ProcessBaseQuery:
         self.columns = [col for col in self.columns if col[0] != '_']
     
     def process_transform(self, base_column, transform):
-        trasnformed_name = transform['name']
+        transformed_name = transform['name']
         if 'sql' in transform.keys():
             sql = transform['sql']
         else:
             sql = base_column
-        return f'{sql} as {trasnformed_name}'
+        return f'{sql} as {transformed_name}'
         
     def process_transforms(self):
         for column in self.transforms:
@@ -65,14 +66,14 @@ class ProcessBaseQuery:
             self.remove_metadata()
         self.process_transforms()
         columns = ['        ' + col for col in self.columns]
-        columns_text = ',\n'.join(columns)
+        columns_text = ',\n'.join(columns) + '\n'
         return columns_text
 
     def write_file(self, path):
         columns_text = self.process_sql()
         query_header = '\n'.join(self.lines[:self.start_index])
         query_footer = '\n'.join(self.lines[self.end_index:])
-        query = query_header + '\n' + columns_text + query_footer
+        query = query_header + '\n' + columns_text + '\n' + query_footer
         
         file = open(path, 'w')
         file.write(query)
