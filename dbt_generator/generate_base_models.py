@@ -1,5 +1,6 @@
 import yaml
 import subprocess
+from platform import system
 
 
 def get_base_tables_and_source(file_path, source_index):
@@ -15,7 +16,10 @@ def generate_base_model(table_name, source_name):
 	bash_command = f'''
 		dbt run-operation generate_base_model --args \'{{"source_name": "{source_name}", "table_name": "{table_name}"}}\'
 	'''
-	output = subprocess.check_output(bash_command, shell=True).decode("utf-8") 
+	if system() == 'Windows':
+	    output = subprocess.check_output(["powershell.exe",bash_command]).decode("utf-8")
+	else:
+		output = subprocess.check_output(bash_command, shell=True).decode("utf-8")
 	sql_index = output.lower().find('with source as')
 	sql_query = output[sql_index:]
 	return sql_query

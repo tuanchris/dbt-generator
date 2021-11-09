@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# VS Code workspace files
+*.code-workspace
+
 # C extensions
 *.so
 
@@ -50,6 +53,7 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
+tests/test_data/out/
 
 # Translations
 *.mo

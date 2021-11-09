@@ -14,15 +14,18 @@ def dbt_generator():
 @click.option('-s', '--source-yml', type=click.Path(), help='Source .yml file to be used')
 @click.option('-o', '--output-path', type=click.Path(), help='Path to write generated models')
 @click.option('-m','--model', type=str, default='', help='Select one model to generate')
+@click.option('--model-prefix', type=bool, default=False, help='Prefix model name with source_name + _')
 @click.option('--source-index', type=int, default=0, help='Index of the source to generate base models for')
-def generate(source_yml, output_path, source_index, model):
+def generate(source_yml, output_path, source_index, model, model_prefix):
     tables, source_name = get_base_tables_and_source(source_yml, source_index)
     if model:
         tables = [model]
     for table in tables:
         file_name = table + '.sql'
+        if model_prefix:
+            file_name = source_name + '_' + file_name
         query = generate_base_model(table, source_name)
-        file = open(os.path.join(output_path, file_name), 'w')
+        file = open(os.path.join(output_path, file_name), 'w', newline='')
         file.write(query)
 
 @dbt_generator.command(help='Transform base models in a directory using a transforms.yml file')
