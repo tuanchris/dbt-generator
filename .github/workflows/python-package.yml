@@ -10,8 +10,8 @@ on:
     branches: [main]
 
 jobs:
-  build-n-publish:
-    name: Build and publish Python distribution
+  buildh:
+    name: Build Python distribution
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@master
@@ -31,8 +31,4 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: Build binary wheel and a source tarball
         run: python setup.py sdist
-      - name: Publish distribution to Test PyPI
-        uses: pypa/gh-action-pypi-publish@master
-        with:
-          password: ${{ secrets.test_pypi_password }}
-          repository_url: https://test.pypi.org/legacy/
+
