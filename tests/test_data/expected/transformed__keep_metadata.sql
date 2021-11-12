@@ -19,7 +19,6 @@ renamed as (
         _sdc_received_at,
         _sdc_sequence as _sdc_seq,
         _sdc_table_version
-
     from source
 
 )
