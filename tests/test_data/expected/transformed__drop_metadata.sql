@@ -13,6 +13,7 @@ renamed as (
         date_trunc('day',datetimezone) as date_time_zone,
         CAST(NAME as varchar) as col_name,
         testaccount
+
     from source
 
 )

@@ -46,7 +46,7 @@ dbt-generator generate -s ./models/source.yml -o ./models/staging/source_name/
 
 This will read in the `source.yml` file and generate the base models in the `staging/source_name` folder. If you have multiple sources defined in your `yml` file, use the `--source-index` flag to specify which source you want to generate base models for.
 
-## Transform base models
+## Transform base models using a custom YAML file
 
 For the same source, you often have consistent naming conventions between tables. For example, the `created_at` and `modified_at` fields are often named the same for all tables. Changing all these fields to common values across different sources is a best practice. However, doing that for all the date columns in 10+ tables is a pain.
 
@@ -61,9 +61,31 @@ Options:
   -m, --model-path PATH       The path to models
   -t, --transforms-path PATH  Path to a .yml file containing transformations
   -o, --output-path PATH      Path to write transformed models to
-  --drop-metadata BOOLEAN     (default=True) optionally drop source columns prefixed with "_" if that designates metadata columns not needed in target
+  --drop-metadata BOOLEAN     (default=False) optionally drop source columns prefixed with "_" if that designates metadata columns not needed in target
   --case-sensitive BOOLEAN    (default=False) treat column names as case-sensitive - otherwise force all to lower
   --help                      Show this message and exit.
+```
+
+## Transform base models using pre-built configs 
+Supported data warehouse: 
+* BigQuery: bq_transform 
+* Snowflake: sf_transform
+
+```
+Usage: dbt-generator bq-transform/sf-transform [OPTIONS]
+
+  Transform base models in a directory for BigQuery source
+
+Options:
+  -m, --model-path PATH        The path to models
+  -o, --output-path PATH       Path to write transformed models to
+  --drop-metadata BOOLEAN      (default=False) optionally drop source columns prefixed with "_" if that designates metadata columns not needed in target
+  --case-sensitive BOOLEAN     (default=False) treat column names as case-sensitive - otherwise force all to lower
+  --split-columns BOOLEAN      Split column names. E.g. currencycode =>
+                               currency_code
+  --id-as-int BOOLEAN          Convert id to int
+  --convert-timestamp BOOLEAN  Convert timestamp to datetime
+  --help                       Show this message and exit.
 ```
 
 ### Example
