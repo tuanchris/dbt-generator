@@ -13,8 +13,6 @@ def dbt_generator():
     pass
 
 
-
-
 @dbt_generator.command(help='Gennerate base models based on a .yml source')
 @click.option('-s', '--source-yml', type=click.Path(), help='Source .yml file to be used')
 @click.option('-o', '--output-path', type=click.Path(), help='Path to write generated models')
