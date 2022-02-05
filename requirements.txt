@@ -1,4 +1,5 @@
-dbt
+dbt-snowflake
+dbt-bigquery
 pyyaml
 click
 pytest
