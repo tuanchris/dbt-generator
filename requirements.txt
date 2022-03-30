@@ -1,4 +1,6 @@
-dbt
+dbt-core
+dbt-postgres
+dbt-snowflake
 pyyaml
 click
 pytest
