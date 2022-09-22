@@ -21,7 +21,7 @@ def dbt_generator():
 @click.option('--model-prefix', type=bool, default=False, help='Prefix model name with source_name + _')
 @click.option('--source-index', type=int, default=0, help='Index of the source to generate base models for')
 @click.option('--materialization', type=str, default='table', help='Materialize base models as table or view')
-def generate(source_yml, output_path, source_index, model, custom_prefix, model_prefix, materialize_as_view):
+def generate(source_yml, output_path, source_index, model, custom_prefix, model_prefix, materialization):
     tables, source_name = get_base_tables_and_source(source_yml, source_index)
     if model:
         tables = [model]
