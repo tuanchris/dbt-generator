@@ -20,7 +20,7 @@ def dbt_generator():
 @click.option('-c', '--custom_prefix', type=str, default='', help='Enter a Custom String Prefix for Model Filename')
 @click.option('--model-prefix', type=bool, default=False, help='Prefix model name with source_name + _')
 @click.option('--source-index', type=int, default=0, help='Index of the source to generate base models for')
-@click.option('--materialize-as-view', type=bool, default=False, help='Materialize base models as views not tables')
+@click.option('--materialization', type=str, default='table', help='Materialize base models as table or view')
 def generate(source_yml, output_path, source_index, model, custom_prefix, model_prefix, materialize_as_view):
     tables, source_name = get_base_tables_and_source(source_yml, source_index)
     if model:
@@ -29,7 +29,7 @@ def generate(source_yml, output_path, source_index, model, custom_prefix, model_
         file_name = custom_prefix + table + '.sql'
         if model_prefix:
             file_name = source_name + '_' + file_name
-        query = generate_base_model(table, source_name, materialize_as_view)
+        query = generate_base_model(table, source_name, materialization)
         file = open(os.path.join(output_path, file_name), 'w', newline='')
         file.write(query)
 
