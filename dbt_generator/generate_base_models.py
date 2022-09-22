@@ -11,10 +11,10 @@ def get_base_tables_and_source(file_path, source_index):
 	source_name = sources['sources'][source_index]['name']
 	return table_names, source_name
 
-def generate_base_model(table_name, source_name, materialize_as_view):
+def generate_base_model(table_name, source_name, materialization='table'):
 	print(f'Generating base model for table {table_name}')
 	bash_command = f'''
-		dbt run-operation generate_base_model --args \'{{"source_name": "{source_name}", "table_name": "{table_name}", "materialize_as_view": "{materialize_as_view}" }}\'
+		dbt run-operation generate_base_model --args \'{{"source_name": "{source_name}", "table_name": "{table_name}", "materialization": "{materialization}" }}\'
 	'''
 	if system() == 'Windows':
 	    output = subprocess.check_output(["powershell.exe",bash_command]).decode("utf-8")
