@@ -29,7 +29,7 @@ def generate(source_yml, output_path, source_index, model, custom_prefix, model_
         file_name = custom_prefix + table + '.sql'
         if model_prefix:
             file_name = source_name + '_' + file_name
-        query = generate_base_model(table, source_name, materialization)
+        query = generate_base_model(table, source_name, materialization=materialization)
         file = open(os.path.join(output_path, file_name), 'w', newline='')
         file.write(query)
 
