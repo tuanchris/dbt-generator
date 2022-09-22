@@ -14,7 +14,7 @@ def get_base_tables_and_source(file_path, source_index):
 def generate_base_model(table_name, source_name, materialization):
 	print(f'Generating base model for table {table_name}')
 	bash_command = f'''
-		dbt run-operation generate_base_model --args \'{{"source_name": "{source_name}", "table_name": "{table_name}"}}\'
+		dbt run-operation codegen.generate_base_model --args \'{{"source_name": "{source_name}", "table_name": "{table_name}"}}\'
 	'''
 	if system() == 'Windows':
 	    output = subprocess.check_output(["powershell.exe",bash_command]).decode("utf-8")
