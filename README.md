@@ -36,6 +36,7 @@ Options:
   -c, --custom_prefix.    Enter a Custom String Prefix for Model Filename
   --model-prefix BOOLEAN  optional prefix of source_name + "_" to the resulting modelname.sql to avoid model name collisions across sources 
   --source-index INTEGER  Index of the source to generate base models for
+  --materialized STRING    Optional parameter to set the materialization strategy (e.g. table, view, incremental')
   --help                  Show this message and exit.
 ```
 
