@@ -20,7 +20,7 @@ def generate_base_model(table_name, source_name, materialized):
 	    output = subprocess.check_output(["powershell.exe",bash_command]).decode("utf-8")
 	else:
 		#output = subprocess.check_output(bash_command, stderr=subprocess.STDOUT, shell=True).decode("utf-8")
-		output = subprocess.run(bash_command, capture_output=True, shell=True).stdout.splitlines()
+		output = subprocess.run(bash_command, capture_output=True, shell=True).stdout.decode('UTF-8')
 	sql_index = output.lower().find('{{')
 	sql_query = output[sql_index:]
 	return sql_query
