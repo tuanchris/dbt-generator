@@ -1,7 +1,7 @@
 import yaml
 import subprocess
 from platform import system
-
+import os
 
 def get_base_tables_and_source(file_path, source_index):
 	file = open(file_path)
